@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+enum StatusEnum {
+    PENDING = 0;
+    PUBLISHING = 1;
+    HIDING = 2;
+}
+
+message CreateCommentsRequest {
+    int32 user_id = 1;
+    StatusEnum status = 2;
+    string content = 3;
+}
+
+message CreateCommentsResponse {
+    bool success = 1;
+}
+
+service Comments {
+    rpc Create (CreateCommentsRequest) returns (CreateCommentsResponse);
+}
