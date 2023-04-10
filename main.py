@@ -1,14 +1,12 @@
 import grpc
+
 from concurrent.futures import ThreadPoolExecutor
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.ext.asyncio import AsyncSession
+
 import utils
-from database.config import get_session
-from sqlalchemy import select
 from database.models import Comments
 from api.grpc_interface import Comments
-
 from protobufs.comments_pb2_grpc import add_CommentsServicer_to_server
 
 app = FastAPI()

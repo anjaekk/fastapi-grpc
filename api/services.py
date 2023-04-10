@@ -1,10 +1,15 @@
-from fastapi import Depends
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.config import get_session
 from database.models import Comments
 
-async def get_user():
+async def get_comment():
     async with get_session() as db:
-        obj = await db.execute(select(Comments))
+        try:
+            obj = await db.execute(select(Comments))
+            return obj.scalars().first()
+        except Exception as e:
+            await db.rollback()
+            raise e
+        finally:
+            await db.close()

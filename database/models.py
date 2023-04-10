@@ -1,6 +1,6 @@
 from .config import Base
 from .enums import StatusEnum
-from sqlalchemy import Column, String, DateTime, Integer, Enum, Boolean
+from sqlalchemy import Column, String, DateTime, Integer, Enum
 from sqlalchemy.sql import func
 
 

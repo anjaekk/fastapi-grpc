@@ -1,10 +1,7 @@
-from typing import Generator
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy import Table, MetaData
-from sqlalchemy import insert, delete
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.engine.reflection import Inspector
+from sqlalchemy.orm import sessionmaker
+
 import utils
 
 DB_URL = f"postgresql+asyncpg://{utils.DATABASE_URL}"
