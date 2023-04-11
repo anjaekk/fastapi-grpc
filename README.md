@@ -2,6 +2,7 @@
 ⚡️Implementing fastapi asynchronous service with grpc based on docker container.⚡️
 
 ### Project Structure
+```
 ├── Dockerfile
 ├── api
 │   ├── __init__.py
@@ -22,3 +23,4 @@
 │   └── comments_pb2_grpc.py
 ├── requirements.txt
 └── utils.py
+```
