@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  python-server:
+    container_name: python-server
+    restart: unless-stopped
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    ports:
+      - 8001:8001 # for health check
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload # Remove '--reload' when production server.
+    env_file: .env
+    volumes:
+      - ./server:/app
+      - /app/protobufs # Remove volume for management with git.
+      - ./www.example.com/fullchain.pem:/etc/ssl/example/fullchain.pem
+      - ./www.example.com/privkey.pem:/etc/ssl/example/privkey.pem
+    networks:
+      - grpc-network
+    
+  python-client:
+    container_name: python-client
+    restart: unless-stopped
+    build:
+      context: ./python-client
+      dockerfile: ./Dockerfile
+    env_file: .env
+    volumes:
+      - ./python-client:/app
+      - /app/protobufs
+    networks:
+      - grpc-network
+    depends_on:
+      - python-server
+
+
+  envoy:
+    image: envoyproxy/envoy-alpine:v1.26
+    restart: always
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./www.example.com/fullchain.pem:/etc/envoy/ssl/example/fullchain.pem
+      - ./www.example.com/privkey.pem:/etc/envoy/ssl/example/privkey.pem
+    networks:
+      - grpc-network
+    ports:
+      - 443:443
+
+networks:
+  grpc-network:
+    driver: bridge
