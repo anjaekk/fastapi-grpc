@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import server.utils as utils
+import utils
 from database.models import Comments
 from api.grpc_interface import Comments
 from protobufs.comments_pb2_grpc import add_CommentsServicer_to_server

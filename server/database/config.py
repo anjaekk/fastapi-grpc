@@ -1,8 +1,11 @@
+import sys
+sys.path.append("..")
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-import server.utils as utils
+import utils
 
 DB_URL = f"postgresql+asyncpg://{utils.DATABASE_URL}"
 

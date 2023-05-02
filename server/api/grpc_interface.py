@@ -4,12 +4,12 @@ from protobufs.comments_pb2 import (
     CreateCommentsResponse
 )
 from protobufs.comments_pb2_grpc import CommentsServicer
-from .services import get_comment
+from .services import create_comment
 
 
 class Comments(CommentsServicer):
     async def Create(
         self, request: CreateCommentsRequest, context: grpc.aio.ServicerContext
     ) -> CreateCommentsResponse:
-        await get_comment()
+        await create_comment()
         return CreateCommentsResponse(success=True)
