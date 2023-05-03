@@ -32,9 +32,10 @@ static_resources:
                           route:
                             cluster: js-client
                             prefix_rewrite: "/"
-                      cors:
+                      cors: # cors filter options
                         allow_origin_string_match:
-                          - prefix: "*"
+                          - exact: https://www.example.com # must match exactly the string
+                          - prefix: https://www.example2.com # must have the same prefix
                         allow_methods: GET, PUT, DELETE, POST, OPTIONS
                         allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout,authorization
                         max_age: "1728000"
