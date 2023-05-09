@@ -3,6 +3,18 @@
 
 (The project in progress...)
 
+</br>
+
+### Quick start
+You can run the docker container using docker-copmose.
+docker-compose up where the docker-compose file is located.
+
+```
+docker-compose up -d python-server python-client envoy
+```
+
+</br>
+
 ### Project Structure
 ```
 .
