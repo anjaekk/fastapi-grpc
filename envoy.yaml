@@ -12,6 +12,10 @@ static_resources:
                 codec_type: auto
                 use_remote_address: true
                 stat_prefix: ingress_http
+                access_log:
+                  - name: envoy.access_loggers.stdout
+                    typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
                 common_http_protocol_options:
                   idle_timeout: 340s
                   max_stream_duration: 600s
