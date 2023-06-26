@@ -25,14 +25,19 @@ async def comment_create_grpc_request(
         status: str, 
         content: str
     ):
+    options = [
+            ("grpc.keepalive_time_ms", 10000),
+            ("grpc.keepalive_timeout_ms", 5000),
+            ("grpc.keepalive_permit_without_calls", True),
+        ]
     if is_server_tls:
         creds = grpc.ssl_channel_credentials()
-        options=(('grpc.ssl_target_name_override', server_tls_url),)
+        options += [('grpc.ssl_target_name_override', server_tls_url)]
         grpc_channel = grpc.secure_channel(
             server_url, creds, options=options
         )
     else:
-        grpc_channel = grpc.aio.insecure_channel(server_url)
+        grpc_channel = grpc.aio.insecure_channel(server_url, options=options)
     with grpc_channel as channel:
         stub = CommentsStub(channel)
         response = stub.Create(

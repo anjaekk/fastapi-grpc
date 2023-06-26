@@ -22,8 +22,13 @@ app.add_middleware(
 
 class GRPCServer:
     def __init__(self):
+        options = [
+            ("grpc.keepalive_time_ms", 10000),
+            ("grpc.keepalive_timeout_ms", 5000),
+            ("grpc.keepalive_permit_without_calls", True),
+        ]
         self.server = grpc.aio.server(
-            ThreadPoolExecutor(max_workers=5)
+            ThreadPoolExecutor(max_workers=5), options=options
         )
 
     def add_service(self, service):
